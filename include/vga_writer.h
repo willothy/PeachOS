@@ -32,6 +32,8 @@ typedef enum {
 void vga_put_char(int x, int y, char c, VGA_COLOR color);
 void vga_write_char(char c, VGA_COLOR color);
 void vga_print(char *str, VGA_COLOR color);
+void vga_print_int(uint32_t n, VGA_COLOR color);
+void newline();
 void vga_clear();
 void vga_init();
 

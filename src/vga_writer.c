@@ -28,10 +28,31 @@ void vga_write_char(char c, VGA_COLOR color) {
     }
 }
 
+void newline() {
+    writer.col = 0;
+    writer.row += 1;
+}
+
 void vga_print(char *str, VGA_COLOR color) {
     for (int i = 0; str[i] != '\0'; i++) {
         vga_write_char(str[i], color);
     }
+}
+
+void vga_print_int(uint32_t n, VGA_COLOR color) {
+    if (n == 0) {
+        vga_print("0", color);
+        return;
+    }
+
+    char buf[11];
+    int i = 10;
+    buf[10] = '\0';
+    while (n > 0) {
+        buf[--i] = '0' + (n % 10);
+        n /= 10;
+    }
+    vga_print(buf + i, color);
 }
 
 void vga_clear() {

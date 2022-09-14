@@ -30,9 +30,6 @@ _start:
     out 0x21, al
     ; End PIC remap
 
-    ; Enable interrupts
-    sti
-
     call kernel_main
 
     ; Infinite loop

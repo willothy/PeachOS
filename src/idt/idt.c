@@ -15,7 +15,7 @@ void no_interrupt_handler() { outb(0x20, 0x20); }
 
 void int21h_handler() {
     // Int 21h
-    vga_print("Key pressedn\n", VGA_WHITE);
+    vga_print("Key pressed\n", VGA_WHITE);
     outb(0x20, 0x20);
 }
 
