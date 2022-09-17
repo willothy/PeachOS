@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "io.h"
 #include "kheap.h"
+#include "paging.h"
 #include "vga_writer.h"
 
 size_t strlen(const char *str) {
