@@ -9,8 +9,6 @@ FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign
 run:
 	qemu-system-x86_64 -smp cpus=2,cores=2 -hda ./bin/os.bin
 
-ee:
-	echo $(BUILDDIRS)
 
 build: $(BUILDDIRS) ./bin/boot.bin ./bin/kernel.bin
 	rm -f ./bin/os.bin
