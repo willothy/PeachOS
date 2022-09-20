@@ -1,25 +1,14 @@
 #include "kernel.h"
-#include "idt.h"
-#include "io.h"
-#include "kheap.h"
-#include "paging.h"
+#include "disk/disk.h"
+#include "fs/pparser.h"
+#include "idt/idt.h"
+#include "io/io.h"
+#include "memory/heap/kheap.h"
+#include "memory/paging/paging.h"
+#include "string/string.h"
 #include "vga_writer.h"
 
-size_t strlen(const char *str) {
-    size_t len = 0;
-    while (str[len])
-        len++;
-    return len;
-}
-
-void strcpy(char *dest, const char *src) {
-    while (*src) {
-        *dest++ = *src++;
-    }
-    *dest = '\0';
-}
-
-static struct paging_4gb_chunk *kernel_chunk = 0;
+static struct paging_4gb_chunk* kernel_chunk = 0;
 
 void kernel_main() {
     vga_init();

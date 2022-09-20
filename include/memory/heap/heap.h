@@ -14,19 +14,19 @@
 typedef unsigned char HEAP_BLOCK_TABLE_ENTRY;
 
 struct heap_table {
-    HEAP_BLOCK_TABLE_ENTRY *entries;
+    HEAP_BLOCK_TABLE_ENTRY* entries;
     size_t total;
 };
 
 struct heap {
-    struct heap_table *table;
-    void *start_addr;
+    struct heap_table* table;
+    void* start_addr;
 };
 
-int heap_create(struct heap *heap, void *ptr, void *end,
-                struct heap_table *table);
+int heap_create(struct heap* heap, void* ptr, void* end,
+                struct heap_table* table);
 
-void *heap_malloc(struct heap *heap, size_t size);
-void heap_free(struct heap *heap, void *ptr);
+void* heap_malloc(struct heap* heap, size_t size);
+void heap_free(struct heap* heap, void* ptr);
 
 #endif /* HEAP_H */

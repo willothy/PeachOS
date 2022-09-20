@@ -101,6 +101,7 @@ ata_lba_read:
     out dx, al
     ; end
 
+    ; send command to read sectors
     mov dx, 0x1f7
     mov al, 0x20
     out dx, al

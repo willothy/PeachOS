@@ -1,13 +1,13 @@
-#include "idt.h"
+#include "idt/idt.h"
 #include "config.h"
-#include "io.h"
-#include "memory.h"
+#include "io/io.h"
+#include "memory/memory.h"
 #include "vga_writer.h"
 
 struct idt_desc idt_descriptors[PEACHOS_TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;
 
-extern void idt_load(void *ptr);
+extern void idt_load(void* ptr);
 extern void int21h();
 extern void no_interrupt();
 
@@ -24,8 +24,8 @@ void idt_zero() {
     vga_print("Divide by zero error", VGA_RED);
 }
 
-void idt_set(int interrupt_no, void *address) {
-    struct idt_desc *desc = &idt_descriptors[interrupt_no];
+void idt_set(int interrupt_no, void* address) {
+    struct idt_desc* desc = &idt_descriptors[interrupt_no];
     desc->offset_1 = (uint32_t)address & 0x0000ffff;
     desc->selector = KERNEL_CODE_SELECTOR;
     desc->zero = 0x00;

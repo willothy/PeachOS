@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 typedef struct {
-    uint16_t *buffer;
+    uint16_t* buffer;
     uint8_t col;
     uint8_t row;
 } vga_writer;
@@ -31,7 +31,7 @@ typedef enum {
 
 void vga_put_char(int x, int y, char c, VGA_COLOR color);
 void vga_write_char(char c, VGA_COLOR color);
-void vga_print(char *str, VGA_COLOR color);
+void vga_print(char* str, VGA_COLOR color);
 void vga_print_int(uint32_t n, VGA_COLOR color);
 void newline();
 void vga_clear();
