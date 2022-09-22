@@ -33,7 +33,7 @@ void newline() {
     writer.row += 1;
 }
 
-void vga_print(char *str, VGA_COLOR color) {
+void vga_print(char* str, VGA_COLOR color) {
     for (int i = 0; str[i] != '\0'; i++) {
         vga_write_char(str[i], color);
     }
@@ -64,7 +64,7 @@ void vga_clear() {
 }
 
 void vga_init() {
-    writer.buffer = (uint16_t *)0xb8000;
+    writer.buffer = (uint16_t*)0xb8000;
     writer.col = 0;
     writer.row = 0;
     vga_clear(writer);

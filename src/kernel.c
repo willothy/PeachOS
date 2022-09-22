@@ -1,5 +1,7 @@
 #include "kernel.h"
 #include "disk/disk.h"
+#include "disk/stream.h"
+#include "fs/fat/fat16.h"
 #include "fs/pparser.h"
 #include "idt/idt.h"
 #include "io/io.h"
@@ -17,6 +19,9 @@ void kernel_main() {
     // Initialize heap
     kheap_init();
     vga_print("Heap initialized.\n", VGA_WHITE);
+
+    fs_init();
+    vga_print("Filesystems initialized.\n", VGA_WHITE);
 
     // Initialize IDT
     idt_init();
@@ -36,4 +41,13 @@ void kernel_main() {
     // Enable interrupts
     enable_interrupts();
     vga_print("Interrupts enabled.\n", VGA_WHITE);
+
+    int fd = fopen("0:/hello.txt", "r");
+    if (fd)
+        vga_print("File opened.\n", VGA_WHITE);
+    else
+        vga_print("File not opened.\n", VGA_WHITE);
+
+    while (1)
+        ;
 }

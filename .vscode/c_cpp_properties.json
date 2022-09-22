@@ -3,7 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/*",
                 "${workspaceFolder}/include"
             ],
             "defines": [],
@@ -20,7 +20,7 @@
             ],
             "defines": [],
             "compilerPath": "/home/willothy/opt/cross/bin/i686-elf-gcc",
-            "cStandard": "gnu99",
+            "cStandard": "c99",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x86",
             "compilerArgs": [

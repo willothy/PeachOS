@@ -33,9 +33,9 @@ static struct path_root* pathparser_create_root(int drive_number) {
 static const char* pathparser_get_path_part(const char** path) {
     char* result_path_part = kzalloc(PEACHOS_MAX_PATH);
     int i = 0;
-    while (**path != '/' && **path != 0) {
+    while (**path != '/' && **path != 0x00) {
         result_path_part[i] = **path;
-        (*path)++;
+        *path += 1;
         i++;
     }
 
@@ -46,19 +46,24 @@ static const char* pathparser_get_path_part(const char** path) {
         kfree(result_path_part);
         result_path_part = 0;
     }
-
     return result_path_part;
 }
 
 struct path_part* pathparser_parse_path_part(struct path_part* last_part,
                                              const char** path) {
     const char* path_part_str = pathparser_get_path_part(path);
+    vga_print("path_part_str: ", VGA_WHITE);
+    vga_print((char*)path_part_str, VGA_WHITE);
+    newline();
+
+    // This contains the proper path part
     if (!path_part_str)
         return 0;
 
     struct path_part* part = kzalloc(sizeof(struct path_part));
-    part->part = path_part_str;
-    part->next = 0;
+    part->part = path_part_str; // part->part is still null after
+                                // this assignment, somehow
+    part->next = 0x00;
 
     if (last_part)
         last_part->next = part;
@@ -84,7 +89,7 @@ struct path_root* pathparser_parse(const char* path,
     const char* temp_path = path;
     struct path_root* path_root = 0;
 
-    if (strlen(path) > PEACHOS_MAX_PATH)
+    if (strlen(path) >= PEACHOS_MAX_PATH)
         goto out;
 
     res = pathparser_path_get_drive(&temp_path);
@@ -96,10 +101,10 @@ struct path_root* pathparser_parse(const char* path,
         goto out;
 
     struct path_part* first_part = pathparser_parse_path_part(NULL, &temp_path);
-    if (!first_part)
-        goto out;
 
-    path_root->first = first_part;
+    if (first_part)
+        path_root->first = first_part;
+
     struct path_part* part = pathparser_parse_path_part(first_part, &temp_path);
     while (part)
         part = pathparser_parse_path_part(part, &temp_path);

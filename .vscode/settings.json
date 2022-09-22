@@ -2,6 +2,8 @@
     "C_Cpp.errorSquiggles": "Enabled",
     "files.associations": {
         "*.ejs": "html",
-        "type_traits": "c"
+        "type_traits": "c",
+        "ratio": "c",
+        "cctype": "c"
     }
 }

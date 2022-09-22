@@ -8,6 +8,14 @@ typedef unsigned int PEACHOS_DISK_TYPE;
 struct disk {
     PEACHOS_DISK_TYPE type;
     int sector_size;
+
+    // Disk id
+    int id;
+
+    struct filesystem* filesystem;
+
+    // Private data for filesystem
+    void* fs_private;
 };
 
 void disk_search_and_init();

@@ -40,8 +40,8 @@ bool paging_is_aligned(void* addr) {
     return ((uint32_t)addr % PAGING_PAGE_SIZE) == 0;
 }
 
-uint32_t paging_get_indices(void* virtual_addr, uint32_t* dir_index_out,
-                            uint32_t* table_index_out) {
+int paging_get_indices(void* virtual_addr, uint32_t* dir_index_out,
+                       uint32_t* table_index_out) {
     int res = 0;
 
     if (!paging_is_aligned(virtual_addr)) {
@@ -66,7 +66,7 @@ int paging_set(uint32_t* directory, void* virt, uint32_t val) {
     uint32_t table_index = 0;
     int res = paging_get_indices(virt, &dir_index, &table_index);
 
-    if (res < 0) {
+    if (ISERR(res)) {
         return res;
     }
 

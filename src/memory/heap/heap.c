@@ -1,5 +1,6 @@
 #include "memory/heap/heap.h"
 #include "config.h"
+#include "disk/disk.h"
 #include "kernel.h"
 #include "memory/memory.h"
 #include "status.h"
@@ -36,7 +37,7 @@ int heap_create(struct heap* heap, void* ptr, void* end,
     heap->table = table;
 
     res = heap_validate_table(ptr, end, table);
-    if (res < 0) {
+    if (ISERR(res)) {
         goto out;
     }
 
@@ -129,7 +130,7 @@ void* heap_malloc_blocks(struct heap* heap, uint32_t total_blocks) {
     void* address = 0;
 
     int start_block = heap_get_start_block(heap, total_blocks);
-    if (start_block < 0) {
+    if (ISERR(start_block)) {
         address = (void*)-EIO;
         goto out;
     }

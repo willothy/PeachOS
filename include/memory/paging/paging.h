@@ -32,8 +32,8 @@ int paging_set(uint32_t* directory, void* virt, uint32_t val);
 
 uint32_t* paging_4gb_chunk_get_directory(struct paging_4gb_chunk* chunk);
 
-uint32_t paging_get_indices(void* virtual_addr, uint32_t* dir_index_out,
-                            uint32_t* table_index_out);
+int paging_get_indices(void* virtual_addr, uint32_t* dir_index_out,
+                       uint32_t* table_index_out);
 
 bool paging_is_aligned(void* addr);
 

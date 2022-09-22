@@ -4,11 +4,31 @@ BITS 16
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
 
-_start:
-    jmp short start
-    nop
+jmp short start
+nop
 
-times 33 db 0
+; FAT16 Header
+OEMIdentifier       db 'PEACHOS '
+BytesPerSector      dw 0x200        ; 512
+SectorsPerCluster   db 0x80         ; 128
+ReservedSectors     dw 200          ;
+FATCopies           db 0x02         ; 2
+RootDirEntries      dw 0x40         ; 64
+NumSectors          dw 0x00         ;
+MediaType           db 0xf8         ; Fixed disk (i.e., typically a partition on a hard disk)
+SectorsPerFat       dw 0x100        ; 256
+SectorsPerTrack     dw 0x20         ; 32
+NumberOfHeads       dw 0x40         ; 64
+HiddenSectors       dd 0x00
+SectorsBig          dd 0x773594     ; 7812500
+
+; Extended BIOS Parameter Block
+DriveNumber         db 0x80
+WinNTBit            db 0x00
+Signature           db 0x29
+VolumeID            dd 0xD105
+VolumeIDString      db 'PEACHOSBOOT'; MUST be 11 bytes
+SystemIDString      db 'FAT16   '   ; MUST be 8 bytes
 
 start:
     jmp 0:step2
